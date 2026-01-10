@@ -2,6 +2,9 @@
 
 export interface Member {
   id: number;
+  realName: string;
+  nickname: string;
+  department: string;
 }
 
 export interface Group {
@@ -53,6 +56,9 @@ export interface SAResult {
 declare global {
   interface Window {
     electron: {
+      // Member operations
+      fetchMembers: () => Promise<Member[]>;
+
       // Assignment operations
       loadAssignments: () => Promise<Assignment[]>;
       loadAssignment: (timestamp: number) => Promise<AssignmentFile>;

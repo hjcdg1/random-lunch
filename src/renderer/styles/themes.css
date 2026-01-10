@@ -1,15 +1,15 @@
 :root {
   --color-background: 255 255 255;
   --color-foreground: 15 23 42;
-  --color-primary: 59 130 246;
-  --color-card: 248 250 252;
-  --color-border: 226 232 240;
+  --color-primary: 230 82 0;
+  --color-card: 255 251 248;
+  --color-border: 255 224 204;
 }
 
 .dark {
   --color-background: 15 23 42;
   --color-foreground: 241 245 249;
-  --color-primary: 96 165 250;
+  --color-primary: 255 102 0;
   --color-card: 30 41 59;
   --color-border: 51 65 85;
 }

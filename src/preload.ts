@@ -4,9 +4,12 @@
  */
 
 import { contextBridge, ipcRenderer } from 'electron';
-import type { Assignment, AssignmentFile, EdgeWeightMap, Settings } from './shared/types';
+import type { Assignment, AssignmentFile, EdgeWeightMap, Member, Settings } from './shared/types';
 
 contextBridge.exposeInMainWorld('electron', {
+  // Member operations
+  fetchMembers: (): Promise<Member[]> => ipcRenderer.invoke('fetch-members'),
+
   // Assignment operations
   loadAssignments: (): Promise<Assignment[]> => ipcRenderer.invoke('load-assignments'),
 

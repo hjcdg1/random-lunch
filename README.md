@@ -1,6 +1,6 @@
-# 랜덤 런치 조 편성기
+# 당근 랜덤 런치 조 편성기
 
-매주 랜덤 런치를 하기 위한 최적의 조를 편성하는 Electron 데스크탑 애플리케이션입니다.
+당근에서 매주 랜덤 런치를 하기 위한 최적의 조를 편성하는 Electron 데스크탑 애플리케이션입니다.
 
 <img width="456" height="300" alt="image" src="https://github.com/user-attachments/assets/8947aa3e-d216-468e-85a8-f82fa6e5d181" />
 

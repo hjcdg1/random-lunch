@@ -1,26 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import type { Assignment } from '../../../shared/types';
+import type { Assignment, Member } from '../../../shared/types';
 import GroupCard from '../assignment/GroupCard';
 
 export default function HistoryPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
 
   useEffect(() => {
-    loadAssignments();
+    loadData();
   }, []);
 
-  const loadAssignments = async () => {
+  const loadData = async () => {
     setLoading(true);
+    try {
+      const [assignmentsData, membersData] = await Promise.all([
+        window.electron.loadAssignments(),
+        window.electron.fetchMembers(),
+      ]);
+      setAssignments(assignmentsData);
+      setMembers(membersData);
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadAssignments = async () => {
     try {
       const data = await window.electron.loadAssignments();
       setAssignments(data);
     } catch (error) {
       console.error('Failed to load assignments:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -46,6 +60,35 @@ export default function HistoryPage() {
       console.error('Failed to delete assignment:', error);
       const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
       alert(`삭제에 실패했습니다.\n오류: ${errorMessage}`);
+    }
+  };
+
+  const generateSlackText = (assignment: Assignment): string => {
+    const lines = assignment.groups.map((group, idx) => {
+      const groupNumber = idx + 1;
+      const memberNames = group.members.map((memberId, memberIdx) => {
+        const member = members.find(m => m.id === memberId);
+        const displayName = member ? member.nickname : String(memberId);
+        if (memberIdx === 0) {
+          return `${displayName} (스레드 오픈 담당)`;
+        }
+        return displayName;
+      });
+      return `- ${groupNumber}조: ${memberNames.join(', ')}`;
+    });
+
+    return lines.join('\n');
+  };
+
+  const handleCopyToClipboard = async () => {
+    if (!selectedAssignment) return;
+    const text = generateSlackText(selectedAssignment);
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 복사되었습니다!');
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      alert('복사에 실패했습니다.');
     }
   };
 
@@ -87,10 +130,26 @@ export default function HistoryPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
           {selectedAssignment.groups.map((group, idx) => (
-            <GroupCard key={idx} group={group} groupNumber={idx + 1} />
+            <GroupCard key={idx} group={group} groupNumber={idx + 1} members={members} />
           ))}
+        </div>
+
+        {/* Slack 공유용 텍스트 */}
+        <div className="border border-border rounded-lg p-6 bg-gray-50 dark:bg-gray-800">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold">Slack 공유용 텍스트</h3>
+            <button
+              onClick={handleCopyToClipboard}
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity text-sm"
+            >
+              복사하기
+            </button>
+          </div>
+          <pre className="text-sm bg-white dark:bg-gray-900 border border-border rounded p-4 overflow-x-auto whitespace-pre-wrap">
+            {generateSlackText(selectedAssignment)}
+          </pre>
         </div>
       </div>
     );

@@ -91,11 +91,11 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* eHR 토큰 설정 */}
+        {/* 당근 eHR 토큰 설정 */}
         <div className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">eHR 토큰</h2>
+          <h2 className="text-xl font-semibold mb-4">당근 eHR API 토큰</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            eHR 구성원 목록 조회 시 사용하는 API 토큰입니다.
+            당근 eHR에서 구성원 목록을 불러올 때 사용하는 API 토큰입니다.
           </p>
 
           <div className="space-y-4">
@@ -103,7 +103,7 @@ export default function SettingsPage() {
               type="password"
               value={apiToken}
               onChange={e => setApiToken(e.target.value)}
-              placeholder="eHR API 토큰을 입력하세요"
+              placeholder="당근 eHR API 토큰을 입력하세요"
               className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
 

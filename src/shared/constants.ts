@@ -1,6 +1,6 @@
 // Application constants
 
-export const APP_NAME = '랜덤 런치 조 편성기';
+export const APP_NAME = '당근 랜덤 런치 조 편성기';
 export const DEFAULT_GROUP_SIZE = 4;
 export const MIN_GROUP_SIZE = 3;
 export const MAX_GROUP_SIZE = 5;

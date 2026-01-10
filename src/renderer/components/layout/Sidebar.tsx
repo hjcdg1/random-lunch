@@ -7,7 +7,7 @@ interface SidebarProps {
 
 export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   const menuItems = [
-    { id: 'new' as const, label: '조 편성', icon: '➕' },
+    { id: 'new' as const, label: '새로운 조 편성', icon: '➕' },
     { id: 'history' as const, label: '조 편성 이력', icon: '📋' },
     { id: 'settings' as const, label: '설정', icon: '⚙️' },
   ];
@@ -15,7 +15,10 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   return (
     <div className="w-64 bg-card border-r border-border flex flex-col">
       <div className="p-6 border-b border-border">
-        <h1 className="text-2xl font-bold">랜덤 런치 조 편성기</h1>
+        <h1 className="text-2xl font-bold">
+          당근 랜덤 런치
+          <br />조 편성기 🥕
+        </h1>
       </div>
 
       <nav className="flex-1 p-4">
