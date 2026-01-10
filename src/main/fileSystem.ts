@@ -177,8 +177,32 @@ export async function deleteAssignment(timestamp: number): Promise<void> {
   const filePath = path.join(assignmentsDir, fileName);
 
   try {
+    // First, load the assignment to get edge updates
+    const content = await fs.readFile(filePath, 'utf-8');
+    const assignmentData: AssignmentFile = JSON.parse(content);
+
+    // Load current edge weights
+    const currentWeights = await loadEdgeWeights();
+
+    // Reverse the edge updates (subtract instead of add)
+    assignmentData.edgeUpdates.forEach(update => {
+      const currentValue = currentWeights[update.pair] || 0;
+      const newValue = currentValue - update.incrementBy;
+
+      if (newValue <= 0) {
+        // If value becomes 0 or negative, remove the entry
+        delete currentWeights[update.pair];
+      } else {
+        currentWeights[update.pair] = newValue;
+      }
+    });
+
+    // Save updated edge weights
+    await saveEdgeWeights(currentWeights);
+
+    // Delete the assignment file
     await fs.unlink(filePath);
-    console.log(`Deleted assignment: ${fileName}`);
+    console.log(`Deleted assignment: ${fileName} and updated edge weights`);
   } catch (error) {
     console.error(`Failed to delete assignment ${timestamp}:`, error);
     throw error;
