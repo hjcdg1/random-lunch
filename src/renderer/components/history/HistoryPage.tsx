@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import type { Assignment, Member } from '../../../shared/types';
 import GroupCard from '../assignment/GroupCard';
+import ConfirmDialog from '../common/ConfirmDialog';
+import AlertDialog from '../common/AlertDialog';
 
 export default function HistoryPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<number | null>(null);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({ title: '', message: '' });
 
   useEffect(() => {
     loadData();
@@ -42,24 +48,36 @@ export default function HistoryPage() {
     return format(new Date(timestamp), 'yyyy년 M월 d일 HH:mm:ss');
   };
 
-  const handleDelete = async (timestamp: number) => {
-    if (!confirm('이 조 편성 이력을 삭제하시겠습니까?')) {
-      return;
-    }
+  const handleDeleteClick = (timestamp: number) => {
+    setDeleteTarget(timestamp);
+    setDeleteConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
+
+    setDeleteConfirmOpen(false);
 
     try {
-      console.log('Deleting assignment:', timestamp);
-      await window.electron.deleteAssignment(timestamp);
+      console.log('Deleting assignment:', deleteTarget);
+      await window.electron.deleteAssignment(deleteTarget);
       console.log('Delete successful, reloading list...');
       await loadAssignments();
-      if (selectedAssignment && selectedAssignment.timestamp === timestamp) {
+      if (selectedAssignment && selectedAssignment.timestamp === deleteTarget) {
         setSelectedAssignment(null);
       }
-      alert('삭제되었습니다.');
+      setAlertMessage({ title: '삭제 완료', message: '삭제되었습니다.' });
+      setAlertOpen(true);
     } catch (error) {
       console.error('Failed to delete assignment:', error);
       const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
-      alert(`삭제에 실패했습니다.\n오류: ${errorMessage}`);
+      setAlertMessage({
+        title: '삭제 실패',
+        message: `삭제에 실패했습니다.\n오류: ${errorMessage}`,
+      });
+      setAlertOpen(true);
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -85,10 +103,18 @@ export default function HistoryPage() {
     const text = generateSlackText(selectedAssignment);
     try {
       await navigator.clipboard.writeText(text);
-      alert('클립보드에 복사되었습니다!');
+      setAlertMessage({
+        title: '복사 완료',
+        message: '클립보드에 복사되었습니다!',
+      });
+      setAlertOpen(true);
     } catch (err) {
       console.error('Failed to copy:', err);
-      alert('복사에 실패했습니다.');
+      setAlertMessage({
+        title: '복사 실패',
+        message: '복사에 실패했습니다.',
+      });
+      setAlertOpen(true);
     }
   };
 
@@ -122,7 +148,7 @@ export default function HistoryPage() {
               </p>
             </div>
             <button
-              onClick={() => handleDelete(selectedAssignment.timestamp)}
+              onClick={() => handleDeleteClick(selectedAssignment.timestamp)}
               className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
             >
               삭제
@@ -187,7 +213,7 @@ export default function HistoryPage() {
                   <button
                     onClick={e => {
                       e.stopPropagation();
-                      handleDelete(assignment.timestamp);
+                      handleDeleteClick(assignment.timestamp);
                     }}
                     className="px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors"
                   >
@@ -200,6 +226,26 @@ export default function HistoryPage() {
           ))}
         </div>
       )}
+
+      {/* Dialogs */}
+      <ConfirmDialog
+        isOpen={deleteConfirmOpen}
+        title="조 편성 이력 삭제"
+        message="이 조 편성 이력을 삭제하시겠습니까?"
+        confirmText="삭제"
+        cancelText="취소"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => {
+          setDeleteConfirmOpen(false);
+          setDeleteTarget(null);
+        }}
+      />
+      <AlertDialog
+        isOpen={alertOpen}
+        title={alertMessage.title}
+        message={alertMessage.message}
+        onConfirm={() => setAlertOpen(false)}
+      />
     </div>
   );
 }

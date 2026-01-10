@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Assignment, Member } from '../../../shared/types';
 import GroupCard from './GroupCard';
+import AlertDialog from '../common/AlertDialog';
 
 type Step = 'select' | 'assigning' | 'result';
 
@@ -11,6 +12,8 @@ export default function NewAssignmentPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Assignment | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({ title: '', message: '' });
 
   const handleFetchMembers = async () => {
     setLoading(true);
@@ -56,7 +59,11 @@ export default function NewAssignmentPage() {
 
   const handleCreateAssignment = async () => {
     if (selectedIds.size === 0) {
-      alert('최소 1명 이상 선택해주세요.');
+      setAlertMessage({
+        title: '선택 오류',
+        message: '최소 1명 이상 선택해주세요.',
+      });
+      setAlertOpen(true);
       return;
     }
 
@@ -110,10 +117,18 @@ export default function NewAssignmentPage() {
     const text = generateSlackText();
     try {
       await navigator.clipboard.writeText(text);
-      alert('클립보드에 복사되었습니다!');
+      setAlertMessage({
+        title: '복사 완료',
+        message: '클립보드에 복사되었습니다!',
+      });
+      setAlertOpen(true);
     } catch (err) {
       console.error('Failed to copy:', err);
-      alert('복사에 실패했습니다.');
+      setAlertMessage({
+        title: '복사 실패',
+        message: '복사에 실패했습니다.',
+      });
+      setAlertOpen(true);
     }
   };
 
@@ -275,6 +290,14 @@ export default function NewAssignmentPage() {
           </div>
         </div>
       )}
+
+      {/* Dialog */}
+      <AlertDialog
+        isOpen={alertOpen}
+        title={alertMessage.title}
+        message={alertMessage.message}
+        onConfirm={() => setAlertOpen(false)}
+      />
     </div>
   );
 }
