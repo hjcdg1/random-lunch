@@ -3,6 +3,7 @@
   "productName": "랜덤 런치 조 편성기",
   "version": "1.0.0",
   "description": "매주 랜덤 런치를 하기 위한 최적의 조를 편성하는 Electron 데스크탑 애플리케이션",
+  "main": ".webpack/main",
   "author": {
     "name": "dio_karrot",
     "email": "dio@daangn.com"
