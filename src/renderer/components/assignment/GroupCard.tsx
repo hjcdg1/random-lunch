@@ -24,10 +24,7 @@ export default function GroupCard({ group, groupNumber, members }: GroupCardProp
 
       <div className="space-y-2">
         {group.members.map(memberId => (
-          <div
-            key={memberId}
-            className="px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded text-sm"
-          >
+          <div key={memberId} className="px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded text-sm">
             {getMemberDisplay(memberId)}
           </div>
         ))}

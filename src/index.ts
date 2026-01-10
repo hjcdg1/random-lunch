@@ -64,9 +64,7 @@ async function fetchMembersFromAPI(token: string, departmentName: string): Promi
   ]);
 
   // Filter departments by name (same logic as api-example.js)
-  const filteredDepartments = departments.filter(dept =>
-    dept.full_name.includes(departmentName)
-  );
+  const filteredDepartments = departments.filter(dept => dept.full_name.includes(departmentName));
 
   // Create department map for filtered departments
   const departmentMap = new Map<string, EHRDepartment>();
@@ -167,7 +165,9 @@ ipcMain.handle('fetch-members', async () => {
     // Fetch members from API filtered by department
     const members = await fetchMembersFromAPI(settings.apiToken, settings.departmentName);
 
-    console.log(`Successfully fetched ${members.length} active members from department: ${settings.departmentName}`);
+    console.log(
+      `Successfully fetched ${members.length} active members from department: ${settings.departmentName}`
+    );
     return members;
   } catch (error) {
     console.error('Failed to fetch members:', error);

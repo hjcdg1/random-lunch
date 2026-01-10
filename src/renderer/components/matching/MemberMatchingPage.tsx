@@ -98,7 +98,8 @@ export default function MemberMatchingPage() {
       <h1 className="text-3xl font-bold mb-6">매칭 수 확인</h1>
 
       <p className="text-gray-600 dark:text-gray-300 mb-6">
-        구성원의 닉네임을 입력하면 해당 구성원이 누구와 가장 많이 조 편성되었는지 확인할 수 있습니다.
+        구성원의 닉네임을 입력하면 해당 구성원이 누구와 가장 많이 조 편성되었는지 확인할 수
+        있습니다.
       </p>
 
       {/* Search Box */}
@@ -136,7 +137,7 @@ export default function MemberMatchingPage() {
       {/* Results */}
       {sections.length > 0 && (
         <div className="space-y-8">
-          {sections.map((section, sectionIndex) => (
+          {sections.map(section => (
             <div key={section.targetMember.id}>
               <div className="mb-4">
                 <h2 className="text-2xl font-semibold">
@@ -159,7 +160,10 @@ export default function MemberMatchingPage() {
                   </thead>
                   <tbody className="divide-y divide-border">
                     {section.matches.map((result, index) => (
-                      <tr key={result.member.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <tr
+                        key={result.member.id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                      >
                         <td className="px-6 py-4 text-sm">{index + 1}</td>
                         <td className="px-6 py-4 text-sm font-medium">
                           {result.member.nickname} ({result.member.realName})
