@@ -1,14 +1,15 @@
 import React from 'react';
 
 interface SidebarProps {
-  currentPage: 'history' | 'new' | 'settings';
-  onNavigate: (page: 'history' | 'new' | 'settings') => void;
+  currentPage: 'history' | 'new' | 'settings' | 'matching';
+  onNavigate: (page: 'history' | 'new' | 'settings' | 'matching') => void;
 }
 
 export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   const menuItems = [
     { id: 'new' as const, label: '새로운 조 편성', icon: '➕' },
     { id: 'history' as const, label: '조 편성 이력', icon: '📋' },
+    { id: 'matching' as const, label: '매칭 수 확인', icon: '🔍' },
     { id: 'settings' as const, label: '설정', icon: '⚙️' },
   ];
 
