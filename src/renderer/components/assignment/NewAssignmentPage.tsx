@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Assignment, Member } from '../../../shared/types';
 import GroupCard from './GroupCard';
 import AlertDialog from '../common/AlertDialog';
@@ -14,6 +14,19 @@ export default function NewAssignmentPage() {
   const [error, setError] = useState<string | null>(null);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState({ title: '', message: '' });
+  const [departmentName, setDepartmentName] = useState<string>('');
+
+  useEffect(() => {
+    // Load current department name from settings
+    window.electron
+      .loadSettings()
+      .then(settings => {
+        setDepartmentName(settings.departmentName);
+      })
+      .catch(error => {
+        console.error('Failed to load settings:', error);
+      });
+  }, []);
 
   const handleFetchMembers = async () => {
     setLoading(true);
@@ -142,6 +155,14 @@ export default function NewAssignmentPage() {
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             당근 eHR에서 구성원 목록을 불러온 후, 참여할 구성원을 선택하여 조를 편성합니다.
           </p>
+          {departmentName && (
+            <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 border border-border rounded-lg">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                현재 적용된 부서명 필터:{' '}
+                <span className="font-semibold text-primary">{departmentName}</span>
+              </span>
+            </div>
+          )}
           <button
             onClick={handleFetchMembers}
             disabled={loading}
