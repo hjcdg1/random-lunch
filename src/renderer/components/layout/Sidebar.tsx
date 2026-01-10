@@ -13,8 +13,8 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   ];
 
   return (
-    <div className="w-64 bg-card border-r border-border flex flex-col">
-      <div className="p-6 border-b border-border">
+    <div className="w-64 bg-gray-50 dark:bg-gray-900 flex flex-col shadow-[2px_0_8px_rgba(0,0,0,0.08)] dark:shadow-[2px_0_8px_rgba(0,0,0,0.3)]">
+      <div className="p-6">
         <h1 className="text-2xl font-bold">
           당근 랜덤 런치
           <br />조 편성기 🥕
@@ -28,11 +28,11 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
             onClick={() => onNavigate(item.id)}
             className={`
               w-full flex items-center gap-3 px-4 py-3 mb-2 rounded-lg
-              text-left transition-colors
+              text-left transition-all
               ${
                 currentPage === item.id
-                  ? 'bg-primary text-white'
-                  : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-primary text-white shadow-md'
+                  : 'hover:bg-white dark:hover:bg-gray-800 hover:shadow-sm'
               }
             `}
           >

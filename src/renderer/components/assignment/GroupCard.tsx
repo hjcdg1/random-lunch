@@ -22,11 +22,11 @@ export default function GroupCard({ group, groupNumber, members }: GroupCardProp
         <span className="text-sm text-gray-500 dark:text-gray-400">{group.members.length}명</span>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="space-y-2">
         {group.members.map(memberId => (
           <div
             key={memberId}
-            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+            className="px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded text-sm"
           >
             {getMemberDisplay(memberId)}
           </div>

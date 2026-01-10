@@ -3,7 +3,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import type { ThemeMode } from '../../../shared/types';
 
 export default function SettingsPage() {
-  const { theme, setTheme, effectiveTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [apiToken, setApiToken] = useState('');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -53,7 +53,7 @@ export default function SettingsPage() {
         <div className="bg-card border border-border rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">테마</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            애플리케이션 외관을 설정합니다. (현재: {effectiveTheme === 'light' ? '라이트' : '다크'})
+            애플리케이션의 테마를 설정합니다.
           </p>
 
           <div className="space-y-2">
