@@ -103,7 +103,7 @@ export default function MemberMatchingPage() {
       </p>
 
       {/* Search Box */}
-      <div className="bg-card border border-border rounded-lg p-6 mb-6 max-w-2xl">
+      <div className="bg-card border border-border rounded-lg p-6 mb-6 w-full">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">구성원 닉네임</label>

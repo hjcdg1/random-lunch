@@ -151,7 +151,7 @@ export default function NewAssignmentPage() {
 
       {/* 초기 상태: 당근 구성원 불러오기 버튼 */}
       {step === 'select' && members.length === 0 && (
-        <div className="max-w-2xl">
+        <div className="w-full">
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             당근 eHR에서 구성원 목록을 불러온 후, 참여할 구성원을 선택하여 조를 편성합니다.
           </p>
