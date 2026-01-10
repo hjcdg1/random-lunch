@@ -8,7 +8,7 @@ import SettingsPage from './components/settings/SettingsPage';
 type Page = 'history' | 'new' | 'settings';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('history');
+  const [currentPage, setCurrentPage] = useState<Page>('new');
 
   return (
     <ThemeProvider>
