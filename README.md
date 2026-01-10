@@ -59,7 +59,7 @@ npm start
 # 프로덕션 빌드
 npm run package
 
-# 배포 파일 생성 (DMG for macOS, installer for Windows)
+# 배포 파일 생성
 npm run make
 ```
 
