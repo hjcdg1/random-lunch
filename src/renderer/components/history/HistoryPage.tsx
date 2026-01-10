@@ -190,7 +190,9 @@ export default function HistoryPage() {
           <p className="text-xl text-gray-500 dark:text-gray-400 mb-4">
             아직 조 편성 이력이 없습니다.
           </p>
-          <p className="text-gray-400 dark:text-gray-500">"조 편성" 메뉴에서 조를 편성해보세요.</p>
+          <p className="text-gray-400 dark:text-gray-500">
+            "새로운 조 편성" 메뉴에서 조를 편성해보세요.
+          </p>
         </div>
       ) : (
         <div className="space-y-3">
