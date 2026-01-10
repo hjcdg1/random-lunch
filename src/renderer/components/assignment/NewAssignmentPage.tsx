@@ -101,13 +101,13 @@ export default function NewAssignmentPage() {
       const groupNumber = idx + 1;
       const memberNames = group.members.map((memberId, memberIdx) => {
         const member = members.find(m => m.id === memberId);
-        const displayName = member ? member.nickname : String(memberId);
+        const displayName = member ? `@${member.nickname}` : String(memberId);
         if (memberIdx === 0) {
           return `${displayName} (스레드 오픈 담당)`;
         }
         return displayName;
       });
-      return `- ${groupNumber}조: ${memberNames.join(', ')}`;
+      return `• ${groupNumber}조: ${memberNames.join(', ')}`;
     });
 
     return lines.join('\n');
@@ -154,7 +154,7 @@ export default function NewAssignmentPage() {
 
       {/* 에러 표시 */}
       {error && (
-        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6">
+        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6 mt-6">
           <strong className="font-bold">오류: </strong>
           <span>{error}</span>
         </div>

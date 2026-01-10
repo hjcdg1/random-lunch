@@ -142,6 +142,7 @@ export async function loadSettings(): Promise<Settings> {
       return {
         theme: 'system',
         apiToken: '',
+        departmentName: '',
       };
     }
     console.error('Failed to load settings:', error);

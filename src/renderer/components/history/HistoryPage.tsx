@@ -86,13 +86,13 @@ export default function HistoryPage() {
       const groupNumber = idx + 1;
       const memberNames = group.members.map((memberId, memberIdx) => {
         const member = members.find(m => m.id === memberId);
-        const displayName = member ? member.nickname : String(memberId);
+        const displayName = member ? `@${member.nickname}` : String(memberId);
         if (memberIdx === 0) {
           return `${displayName} (스레드 오픈 담당)`;
         }
         return displayName;
       });
-      return `- ${groupNumber}조: ${memberNames.join(', ')}`;
+      return `• ${groupNumber}조: ${memberNames.join(', ')}`;
     });
 
     return lines.join('\n');

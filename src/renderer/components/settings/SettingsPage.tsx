@@ -5,15 +5,17 @@ import type { ThemeMode } from '../../../shared/types';
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const [apiToken, setApiToken] = useState('');
+  const [departmentName, setDepartmentName] = useState('');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    // Load API token from settings
+    // Load settings
     window.electron
       .loadSettings()
       .then(settings => {
         setApiToken(settings.apiToken);
+        setDepartmentName(settings.departmentName);
       })
       .catch(error => {
         console.error('Failed to load settings:', error);
@@ -28,17 +30,17 @@ export default function SettingsPage() {
     }
   };
 
-  const handleSaveToken = async () => {
+  const handleSaveSettings = async () => {
     setSaving(true);
     setSaved(false);
 
     try {
-      await window.electron.saveSettings({ apiToken });
+      await window.electron.saveSettings({ apiToken, departmentName });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (error) {
-      console.error('Failed to save API token:', error);
-      alert('API 토큰 저장에 실패했습니다.');
+      console.error('Failed to save settings:', error);
+      alert('설정 저장에 실패했습니다.');
     } finally {
       setSaving(false);
     }
@@ -91,25 +93,42 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* 당근 eHR 토큰 설정 */}
+        {/* 당근 eHR 설정 */}
         <div className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">당근 eHR API 토큰</h2>
+          <h2 className="text-xl font-semibold mb-4">당근 eHR API 설정</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            당근 eHR에서 구성원 목록을 불러올 때 사용하는 API 토큰입니다.
+            당근 eHR API로 구성원 목록을 불러올 때 사용하는 설정입니다.
           </p>
 
           <div className="space-y-4">
-            <input
-              type="password"
-              value={apiToken}
-              onChange={e => setApiToken(e.target.value)}
-              placeholder="당근 eHR API 토큰을 입력하세요"
-              className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-            />
+            <div>
+              <label className="block text-sm font-medium mb-2">부서명</label>
+              <input
+                type="text"
+                value={departmentName}
+                onChange={e => setDepartmentName(e.target.value)}
+                placeholder="예: Local Business"
+                className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                부서 전체 이름에 포함된 텍스트를 입력하세요 (예: "Local Business")
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">eHR API 토큰</label>
+              <input
+                type="password"
+                value={apiToken}
+                onChange={e => setApiToken(e.target.value)}
+                placeholder="당근 eHR API 토큰을 입력하세요"
+                className="w-full px-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
 
             <div className="flex items-center gap-3">
               <button
-                onClick={handleSaveToken}
+                onClick={handleSaveSettings}
                 disabled={saving}
                 className="px-6 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
               >

@@ -5,6 +5,7 @@ export interface Member {
   realName: string;
   nickname: string;
   department: string;
+  slackUserId?: string;
 }
 
 export interface Group {
@@ -35,6 +36,7 @@ export type ThemeMode = 'system' | 'light' | 'dark';
 export interface Settings {
   theme: ThemeMode;
   apiToken: string;
+  departmentName: string;
 }
 
 // Simulated Annealing types
