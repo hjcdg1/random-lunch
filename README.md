@@ -57,10 +57,7 @@ npm install
 npm start
 
 # 프로덕션 빌드
-npm run package
-
-# 배포 파일 생성
-npm run make
+npm run build
 ```
 
 ### 코드 품질 검사
@@ -85,6 +82,16 @@ npm run format
 npm run check-all
 ```
 
+### 데이터 관리
+
+```bash
+# 초기 데이터 적용 (2026.01.0까지 17번의 과거 조 편성 이력 적용)
+npm run init-data
+
+# 모든 데이터 삭제 (조 편성 이력, 엣지 가중치, 설정)
+npm run clean-data
+```
+
 <br>
 
 ## 프로젝트 구조
@@ -92,16 +99,20 @@ npm run check-all
 ```
 random-lunch/
 ├── src/
-│   ├── index.ts           # 메인 프로세스 진입점, IPC 핸들러
-│   ├── preload.ts         # IPC 브릿지
-│   ├── main/              # 메인 프로세스 로직
-│   ├── renderer/          # React 렌더러 프로세스
-│   ├── algorithm/         # 조 편성 알고리즘 (SA)
-│   └── shared/            # 공유 타입 및 상수
-└── data/                  # 데이터 저장 (자동 생성, gitignore)
-    ├── assignments/       # 조 편성 이력
-    ├── edge-weights.json  # 엣지 가중치
-    └── settings.json      # 설정
+│   ├── index.ts            # 메인 프로세스 진입점, IPC 핸들러
+│   ├── preload.ts          # IPC 브릿지
+│   ├── main/               # 메인 프로세스 로직
+│   ├── renderer/           # React 렌더러 프로세스
+│   ├── algorithm/          # 조 편성 알고리즘 (SA)
+│   └── shared/             # 공유 타입 및 상수
+├── scripts/                # 유틸리티 스크립트
+│   ├── init-data.js        # 초기 데이터 적용
+│   └── clean-data.js       # 모든 데이터 삭제
+└── migration/              # 과거 데이터 마이그레이션
+    ├── result/             # 초기 데이터 (과거 조 편성 이력)
+    ├── migrate.js          # 마이그레이션 스크립트
+    ├── HISTORIES.md        # 과거 조 편성 이력
+    └── CURRENT_MEMBERS.md  # 현재 재직 구성원 목록
 ```
 
 <br>
@@ -131,8 +142,8 @@ random-lunch/
 
 ### 파일 위치
 
-- **macOS**: `~/Library/Application Support/random-lunch/data/`
-- **Windows**: `%APPDATA%/random-lunch/data/`
+- **macOS**: `~/Library/Application Support/당근 랜덤 런치 조 편성기/data/`
+- **Windows**: `%APPDATA%/당근 랜덤 런치 조 편성기/data/`
 
 ### 파일 형식
 
@@ -169,6 +180,7 @@ random-lunch/
 ```json
 {
   "theme": "system",
-  "apiToken": ""
+  "apiToken": "",
+  "departmentName": ""
 }
 ```
