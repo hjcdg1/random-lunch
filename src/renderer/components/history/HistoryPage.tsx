@@ -9,6 +9,7 @@ export default function HistoryPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<number | null>(null);
@@ -21,15 +22,25 @@ export default function HistoryPage() {
 
   const loadData = async () => {
     setLoading(true);
+    setError(null);
     try {
-      const [assignmentsData, membersData] = await Promise.all([
-        window.electron.loadAssignments(),
-        window.electron.fetchMembers(),
-      ]);
+      // Load assignments first (this should always work)
+      const assignmentsData = await window.electron.loadAssignments();
       setAssignments(assignmentsData);
-      setMembers(membersData);
-    } catch (error) {
-      console.error('Failed to load data:', error);
+
+      // Try to load members (may fail if API token is not set)
+      try {
+        const membersData = await window.electron.fetchMembers();
+        setMembers(membersData);
+      } catch (memberErr) {
+        console.error('Failed to load members:', memberErr);
+        setError(
+          memberErr instanceof Error ? memberErr.message : '구성원 정보를 불러오는 데 실패했습니다.'
+        );
+      }
+    } catch (err) {
+      console.error('Failed to load assignments:', err);
+      setError(err instanceof Error ? err.message : '조 편성 이력을 불러오는 데 실패했습니다.');
     } finally {
       setLoading(false);
     }
@@ -139,6 +150,14 @@ export default function HistoryPage() {
           >
             ← 목록으로 돌아가기
           </button>
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-4">
+              {error}
+            </div>
+          )}
+
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold">{formatDate(selectedAssignment.timestamp)}</h1>
@@ -184,6 +203,13 @@ export default function HistoryPage() {
   return (
     <div className="p-8 min-w-[900px]">
       <h1 className="text-3xl font-bold mb-6">조 편성 이력</h1>
+
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6">
+          {error}
+        </div>
+      )}
 
       {assignments.length === 0 ? (
         <div className="text-center py-20">

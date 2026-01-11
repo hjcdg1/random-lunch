@@ -106,7 +106,7 @@ export default function MemberMatchingPage() {
       <div className="bg-card border border-border rounded-lg p-6 mb-6 w-full">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">구성원 닉네임</label>
+            <label className="block text-sm font-medium mb-3">구성원 닉네임</label>
             <input
               type="text"
               value={searchNickname}
@@ -129,7 +129,7 @@ export default function MemberMatchingPage() {
 
       {/* Error Message */}
       {error && (
-        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6 max-w-2xl">
+        <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6">
           {error}
         </div>
       )}
