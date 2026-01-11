@@ -1,0 +1,393 @@
+{
+  "timestamp": 1762826400000,
+  "groups": [
+    {
+      "members": [
+        863,
+        1301,
+        1388,
+        1099
+      ]
+    },
+    {
+      "members": [
+        921,
+        472,
+        1381,
+        963
+      ]
+    },
+    {
+      "members": [
+        214,
+        73,
+        1137,
+        1044
+      ]
+    },
+    {
+      "members": [
+        389,
+        456,
+        135
+      ]
+    },
+    {
+      "members": [
+        1115,
+        966,
+        1302
+      ]
+    },
+    {
+      "members": [
+        118,
+        1117,
+        340,
+        1163
+      ]
+    },
+    {
+      "members": [
+        496,
+        141,
+        292,
+        1300
+      ]
+    },
+    {
+      "members": [
+        275,
+        1255,
+        1265,
+        463
+      ]
+    },
+    {
+      "members": [
+        271,
+        89,
+        1314
+      ]
+    },
+    {
+      "members": [
+        942,
+        1047,
+        204
+      ]
+    },
+    {
+      "members": [
+        487,
+        1082,
+        1060,
+        781
+      ]
+    },
+    {
+      "members": [
+        649,
+        108,
+        986
+      ]
+    },
+    {
+      "members": [
+        705,
+        145,
+        1348
+      ]
+    }
+  ],
+  "participatingMembers": [
+    73,
+    89,
+    108,
+    118,
+    135,
+    141,
+    145,
+    204,
+    214,
+    271,
+    275,
+    292,
+    340,
+    389,
+    456,
+    463,
+    472,
+    487,
+    496,
+    649,
+    705,
+    781,
+    863,
+    921,
+    942,
+    963,
+    966,
+    986,
+    1044,
+    1047,
+    1060,
+    1082,
+    1099,
+    1115,
+    1117,
+    1137,
+    1163,
+    1255,
+    1265,
+    1300,
+    1301,
+    1302,
+    1314,
+    1348,
+    1381,
+    1388
+  ],
+  "edgeUpdates": [
+    {
+      "pair": "863-1301",
+      "incrementBy": 1
+    },
+    {
+      "pair": "863-1388",
+      "incrementBy": 1
+    },
+    {
+      "pair": "863-1099",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1301-1388",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1099-1301",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1099-1388",
+      "incrementBy": 1
+    },
+    {
+      "pair": "472-921",
+      "incrementBy": 1
+    },
+    {
+      "pair": "921-1381",
+      "incrementBy": 1
+    },
+    {
+      "pair": "921-963",
+      "incrementBy": 1
+    },
+    {
+      "pair": "472-1381",
+      "incrementBy": 1
+    },
+    {
+      "pair": "472-963",
+      "incrementBy": 1
+    },
+    {
+      "pair": "963-1381",
+      "incrementBy": 1
+    },
+    {
+      "pair": "73-214",
+      "incrementBy": 1
+    },
+    {
+      "pair": "214-1137",
+      "incrementBy": 1
+    },
+    {
+      "pair": "214-1044",
+      "incrementBy": 1
+    },
+    {
+      "pair": "73-1137",
+      "incrementBy": 1
+    },
+    {
+      "pair": "73-1044",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1044-1137",
+      "incrementBy": 1
+    },
+    {
+      "pair": "389-456",
+      "incrementBy": 1
+    },
+    {
+      "pair": "135-389",
+      "incrementBy": 1
+    },
+    {
+      "pair": "135-456",
+      "incrementBy": 1
+    },
+    {
+      "pair": "966-1115",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1115-1302",
+      "incrementBy": 1
+    },
+    {
+      "pair": "966-1302",
+      "incrementBy": 1
+    },
+    {
+      "pair": "118-1117",
+      "incrementBy": 1
+    },
+    {
+      "pair": "118-340",
+      "incrementBy": 1
+    },
+    {
+      "pair": "118-1163",
+      "incrementBy": 1
+    },
+    {
+      "pair": "340-1117",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1117-1163",
+      "incrementBy": 1
+    },
+    {
+      "pair": "340-1163",
+      "incrementBy": 1
+    },
+    {
+      "pair": "141-496",
+      "incrementBy": 1
+    },
+    {
+      "pair": "292-496",
+      "incrementBy": 1
+    },
+    {
+      "pair": "496-1300",
+      "incrementBy": 1
+    },
+    {
+      "pair": "141-292",
+      "incrementBy": 1
+    },
+    {
+      "pair": "141-1300",
+      "incrementBy": 1
+    },
+    {
+      "pair": "292-1300",
+      "incrementBy": 1
+    },
+    {
+      "pair": "275-1255",
+      "incrementBy": 1
+    },
+    {
+      "pair": "275-1265",
+      "incrementBy": 1
+    },
+    {
+      "pair": "275-463",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1255-1265",
+      "incrementBy": 1
+    },
+    {
+      "pair": "463-1255",
+      "incrementBy": 1
+    },
+    {
+      "pair": "463-1265",
+      "incrementBy": 1
+    },
+    {
+      "pair": "89-271",
+      "incrementBy": 1
+    },
+    {
+      "pair": "271-1314",
+      "incrementBy": 1
+    },
+    {
+      "pair": "89-1314",
+      "incrementBy": 1
+    },
+    {
+      "pair": "942-1047",
+      "incrementBy": 1
+    },
+    {
+      "pair": "204-942",
+      "incrementBy": 1
+    },
+    {
+      "pair": "204-1047",
+      "incrementBy": 1
+    },
+    {
+      "pair": "487-1082",
+      "incrementBy": 1
+    },
+    {
+      "pair": "487-1060",
+      "incrementBy": 1
+    },
+    {
+      "pair": "487-781",
+      "incrementBy": 1
+    },
+    {
+      "pair": "1060-1082",
+      "incrementBy": 1
+    },
+    {
+      "pair": "781-1082",
+      "incrementBy": 1
+    },
+    {
+      "pair": "781-1060",
+      "incrementBy": 1
+    },
+    {
+      "pair": "108-649",
+      "incrementBy": 1
+    },
+    {
+      "pair": "649-986",
+      "incrementBy": 1
+    },
+    {
+      "pair": "108-986",
+      "incrementBy": 1
+    },
+    {
+      "pair": "145-705",
+      "incrementBy": 1
+    },
+    {
+      "pair": "705-1348",
+      "incrementBy": 1
+    },
+    {
+      "pair": "145-1348",
+      "incrementBy": 1
+    }
+  ]
+}
