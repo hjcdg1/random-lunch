@@ -39,7 +39,9 @@
 786 Sally.park
 863 Bruno
 868 Juna
+894 Rose
 921 Joyce
+923 Dino
 928 Jayden.park
 929 Stella.joung
 942 Sean.lyu
@@ -68,6 +70,7 @@
 1301 Luca
 1302 Jaden.park
 1314 Hannah.kim
+1315 Joy.yoo
 1321 Danu
 1323 Jasmine.lee
 1348 Rogan
@@ -85,3 +88,4 @@
 1474 Christy
 1481 Marie.cho
 1482 Aisa
+1484 Jake.kwak

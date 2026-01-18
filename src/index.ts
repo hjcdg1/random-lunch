@@ -10,6 +10,7 @@ interface EHRProfile {
   name: string;
   original_name: string;
   department_code: string;
+  department_codes: string[];
   employment_status: string;
   slack_user_id: string;
 }
@@ -76,7 +77,9 @@ async function fetchMembersFromAPI(token: string, departmentName: string): Promi
 
   // Filter profiles by department code and active status
   const members: Member[] = profiles
-    .filter(profile => departmentCodes.has(profile.department_code))
+    .filter(profile =>
+      profile.department_codes.some(departmentCode => departmentCodes.has(departmentCode))
+    )
     .filter(profile => profile.employment_status === 'active')
     .map(profile => ({
       id: profile.id,
